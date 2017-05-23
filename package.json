@@ -1,0 +1,23 @@
+{
+  "name": "bookmarks",
+  "version": "1.0.0",
+  "description": "Bookmarks application using Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Electron",
+    "bookmark"
+  ],
+  "author": "Gabi Jack",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.6.8",
+    "electron-reload": "^1.2.0"
+  },
+  "dependencies": {
+    "bulma": "^0.3.1",
+    "font-awesome": "^4.7.0"
+  }
+}
