@@ -12,7 +12,7 @@ exports.createWindow = () => {
     minHeight: 310
   })
 
-  //this.win.webContents.openDevTools()
+  this.win.webContents.openDevTools()
   this.win.loadURL(`file://${__dirname}/renderer/main.html`)
   this.win.on('closed', () => {
     this.win = null
