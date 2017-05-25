@@ -1,5 +1,6 @@
 const {app, ipcMain} = require('electron')
 const mainWindow = require('./mainWindow.js')
+const readItem = require('./readItem.js')
 
 const path = require('path')
 const url = require('url')
@@ -7,10 +8,10 @@ const url = require('url')
 require('electron-reload')(__dirname)
 
 ipcMain.on('new-item', (e, itemURL) => {
-  // send mock data back just to test
-  setTimeout(() => {
-    e.sender.send('new-item-success', 'message received')
-  }, 2000)
+
+  readItem(itemURL, (item) => {
+    e.sender.send('new-item-success', item)
+  })
 })
 
 app.on('ready', mainWindow.createWindow)
