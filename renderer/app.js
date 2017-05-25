@@ -1,4 +1,5 @@
 const {ipcRenderer} = require('electron')
+const  items = require('./items.js')
 
 // Show add modal
 $('.open-add-modal').click(() => {
@@ -24,6 +25,8 @@ $('#add-button').click(() => {
 
 ipcRenderer.on('new-item-success', (e, item) => {
   console.log(item)
+
+  items.addItem(item)
 
   $('#add-modal').removeClass('is-active')
   $('#item-input').prop('disabled', false).val('')
