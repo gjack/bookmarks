@@ -1,3 +1,10 @@
+exports.toreadItems = JSON.parse(localStorage.getItem('toreadItems')) || []
+
+// save items to localstorage
+exports.saveItems = () => {
+  localStorage.setItem('toreadItems', JSON.stringify(this.toreadItems))
+}
+
 exports.addItem = (item) => {
   $('#no-items').hide()
 
