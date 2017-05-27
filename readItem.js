@@ -10,7 +10,6 @@ module.exports = (url, callback) => {
     show: false,
     webPreferences: {
       offscreen: true,
-      javascript: false
     }
   })
 
