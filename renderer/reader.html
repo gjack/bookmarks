@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Readit</title>
+    <link rel="stylesheet" href="../node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="main.css">
+    <style>
+      webview, html, body {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <webview src="about:blank"></webview>
+    <script>
+      $ = require('jquery')
+      const queryString = require('query-string')
+      const queryParams = queryString.parse(location.search)
+
+      // get query string 'url'
+      let url = decodeURIComponent(queryParams.url)
+
+      $('webview').one('dom-ready', (e) => {
+        e.currentTarget.loadURL(url)
+      })
+    </script>
+  </body>
+  </html>
