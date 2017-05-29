@@ -19,6 +19,29 @@ exports.changeItem = (direction) => {
   }
 }
 
+// Window function
+// Delete item
+window.deleteItem = (i) => {
+  // Remove item from html
+  $('.read-item').eq(i).remove()
+  this.toreadItems = this.toreadItems.filter((item, index) => {
+    return index !== i
+  })
+
+  // Update the storage
+  this.saveItems()
+
+  // Select prev item or none if list empty
+  if (this.toreadItems.length) {
+    // if first item was deleted, select first item in list, else previous item
+    let newItemIndex = (i === 0) ? 0 : i - 1
+    // Assign active class to new index
+    $('.read-item').eq(newItemIndex).addClass('is-active')
+  } else {
+    $('#no-items').show()
+  }
+}
+
 exports.openItem = () => {
   if( !this.toreadItems.length) return
 
@@ -26,7 +49,8 @@ exports.openItem = () => {
 
   let contentURL = encodeURIComponent(targetItem.data('url'))
 
-  let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}`
+  let itemIndex = targetItem.index() - 1
+  let readerWinURL = `file://${__dirname}/reader.html?url=${contentURL}&itemIndex=${itemIndex}`
 
   // Open item in new proxy BrowserWindow
   let readerWin = window.open(readerWinURL,  targetItem.data('title'))

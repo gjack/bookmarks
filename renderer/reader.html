@@ -29,12 +29,23 @@
         </div>
       </div>
     </section>
+    <a id="mark-read" class="is-hidden">
+      <div class="block">
+        <span class="tag is-large is-primary">
+          <span class="icon">
+            <i class="fa fa-check fa-inverse"></i>
+          </span>&nbsp; Read
+        </span>
+      </div>
+    </a>
     <webview src="about:blank"></webview>
     <script>
       $ = require('jquery')
       const queryString = require('query-string')
       const queryParams = queryString.parse(location.search)
 
+      // Get item itemIndex
+      let itemIndex = queryParams.itemIndex
       // get query string 'url'
       let url = decodeURIComponent(queryParams.url)
 
@@ -42,10 +53,19 @@
         e.currentTarget.loadURL(url)
       }).one('did-finish-load', () => {
         $('#loader').fadeOut(100)
+        // show mark read button
+        $('#mark-read').removeClass('is-hidden')
       }).on('did-fail-load', () => {
+        $('#mark-read').addClass('is-hidden')
         $('#loader .busy').addClass('is-hidden')
         $('#loader').fadeIn(100)
         $('#loader .failed').removeClass('is-hidden')
+      })
+
+      $('#mark-read').click(() => {
+        // Parent window
+        window.opener.eval(`deleteItem(${itemIndex})`)
+        window.close()
       })
     </script>
   </body>
