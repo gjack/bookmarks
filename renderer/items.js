@@ -21,7 +21,9 @@ exports.changeItem = (direction) => {
 
 // Window function
 // Delete item
-window.deleteItem = (i) => {
+window.deleteItem = (i = false) => {
+  // if no index is passed delete the currently selected one
+  if (i === false) i = ($('.read-item.is-active').index() - 1)
   // Remove item from html
   $('.read-item').eq(i).remove()
   this.toreadItems = this.toreadItems.filter((item, index) => {
@@ -42,7 +44,15 @@ window.deleteItem = (i) => {
   }
 }
 
-exports.openItem = () => {
+window.openInBrowser = () => {
+  if( !this.toreadItems.length) return
+
+  let targetItem = $('.read-item.is-active')
+
+  require('electron').shell.openExternal(targetItem.data('url'))
+}
+
+window.openItem = () => {
   if( !this.toreadItems.length) return
 
   let targetItem = $('.read-item.is-active')
@@ -66,5 +76,5 @@ exports.addItem = (item) => {
                   </a>`
   $('#read-list').append(itemHTML)
 
-  $('.read-item').off('click, dblclick').on('click', this.selectItem).on('dblclick', this.openItem)
+  $('.read-item').off('click, dblclick').on('click', this.selectItem).on('dblclick', window.openItem)
 }
